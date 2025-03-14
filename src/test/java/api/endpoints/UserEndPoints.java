@@ -38,7 +38,7 @@ public class UserEndPoints {
                 .pathParam("username",username)
                 .body(payload)
            .when()
-                .put(Routes.post_url);
+                .put(Routes.update_url);
         return response;
     }
 
@@ -47,7 +47,7 @@ public class UserEndPoints {
         Response response =  given()
                 .pathParam("username",username)
                 .when()
-                .delete(Routes.post_url);
+                .delete(Routes.delete_url);
         return response;
     }
 
