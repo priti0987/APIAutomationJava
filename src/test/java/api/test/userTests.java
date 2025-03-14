@@ -30,8 +30,15 @@ public class userTests {
     @Test(priority = 1)
     public  void  testPostUser()
     {
-
         Response response= UserEndPoints.createUser(userPayload);
+        response.then().log().all();
+        Assert.assertEquals(response.getStatusCode(),200);
+    }
+
+    @Test(priority = 2)
+    public  void  testGetUserByName()
+    {
+        Response response= UserEndPoints.readUser(this.userPayload.getUsername());
         response.then().log().all();
         Assert.assertEquals(response.getStatusCode(),200);
     }
