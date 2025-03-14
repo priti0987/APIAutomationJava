@@ -1,8 +1,12 @@
 package api.test;
 
+import api.endpoints.UserEndPoints;
 import api.payload.User;
 import com.github.javafaker.Faker;
+import io.restassured.response.Response;
+import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
 public class userTests {
 
@@ -13,7 +17,7 @@ public class userTests {
     {
         faker = new Faker();
         userPayload = new User();
-
+        //Data
         userPayload.setId(faker.idNumber().hashCode());
         userPayload.setUsername(faker.name().username());
         userPayload.setFirstName(faker.name().firstName());
@@ -22,5 +26,13 @@ public class userTests {
         userPayload.setPassword(faker.internet().password(5,10));
         userPayload.setPhone(faker.phoneNumber().cellPhone());
 
+    }
+    @Test(priority = 1)
+    public  void  testPostUser()
+    {
+
+        Response response= UserEndPoints.createUser(userPayload);
+        response.then().log().all();
+        Assert.assertEquals(response.getStatusCode(),200);
     }
 }
